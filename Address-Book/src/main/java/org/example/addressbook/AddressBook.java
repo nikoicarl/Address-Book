@@ -1,5 +1,6 @@
 package org.example.addressbook;
 
+import org.example.addressbook.InsertData;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class AddressBook extends Application {
+
+    private InsertData insertData = new InsertData();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -137,25 +140,35 @@ public class AddressBook extends Application {
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty() ||
-                        emailField.getText().isEmpty() || phoneField.getText().isEmpty() ||
-                        addressArea.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
-                            "Form Error!", "Please fill in all fields");
-                    return;
+                if (validateFields(firstNameField, lastNameField, emailField, phoneField, addressArea)) {
+                    // Call the insertContact method with the data entered in the form fields
+                    insertData.insertContact(firstNameField.getText(), lastNameField.getText(),
+                            emailField.getText(), phoneField.getText(), addressArea.getText());
+
+                    showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
+                            "Contact Added!", "Contact added successfully!");
+                    // Clear input fields after submission
+                    firstNameField.clear();
+                    lastNameField.clear();
+                    emailField.clear();
+                    phoneField.clear();
+                    addressArea.clear();
                 }
-                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
-                        "Registration Successful!", "Welcome " + firstNameField.getText());
-                // Clear input fields after submission
-                firstNameField.clear();
-                lastNameField.clear();
-                emailField.clear();
-                phoneField.clear();
-                addressArea.clear();
             }
         });
     }
 
+    private boolean validateFields(TextField firstNameField, TextField lastNameField, TextField emailField,
+                                   TextField phoneField, TextArea addressArea) {
+        if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty() ||
+                emailField.getText().isEmpty() || phoneField.getText().isEmpty() ||
+                addressArea.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, firstNameField.getScene().getWindow(),
+                    "Form Error!", "Please fill in all fields");
+            return false;
+        }
+        return true;
+    }
 
     private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
