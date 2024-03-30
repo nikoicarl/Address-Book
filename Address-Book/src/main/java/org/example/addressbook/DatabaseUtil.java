@@ -15,7 +15,6 @@ public class DatabaseUtil {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
             throw new IllegalStateException("MySQL JDBC Driver not found", e);
         }
     }
@@ -31,6 +30,7 @@ public class DatabaseUtil {
             try {
                 connection.close();
             } catch (SQLException e) {
+                // Instead of just printing the stack trace, you might want to log the error
                 e.printStackTrace();
             }
         }

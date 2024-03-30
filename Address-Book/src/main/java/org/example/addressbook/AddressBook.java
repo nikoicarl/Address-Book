@@ -55,8 +55,6 @@ public class AddressBook extends Application {
         // Set the vertical gap between rows
         gridPane.setVgap(10);
 
-        // Add Column Constraints
-
         // columnOneConstraints will be applied to all the nodes placed in column one.
         ColumnConstraints columnOneConstraints = new ColumnConstraints(100, 100, Double.MAX_VALUE);
         columnOneConstraints.setHalignment(HPos.RIGHT);
@@ -123,8 +121,8 @@ public class AddressBook extends Application {
 
         // Add Address TextArea
         TextArea addressArea = new TextArea();
-        addressArea.setPrefRowCount(4); // Set preferred number of rows
-        addressArea.setWrapText(true); // Enable text wrapping
+        addressArea.setPrefRowCount(4); // Set the number of rows
+        addressArea.setWrapText(true);
         gridPane.add(addressArea, 1, 5);
 
         // Add Submit Button
@@ -136,7 +134,7 @@ public class AddressBook extends Application {
         GridPane.setHalignment(submitButton, HPos.CENTER);
         GridPane.setMargin(submitButton, new Insets(20, 0, 20, 0));
 
-        // Event for submit button//
+        // Submit Button Event
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
