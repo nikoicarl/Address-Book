@@ -6,7 +6,9 @@ import java.sql.SQLException;
 
 public class InsertData {
 
-    private static final String INSERT_CONTACT_SQL = "INSERT INTO `contact`(`first_name`, `last_name`, `email`, `phone`, `address`) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_CONTACT_SQL = "INSERT INTO `contact`(`first_name`, `last_name`, `email`, `phone`, `address`) " +
+            "SELECT ?, ?, ?, ?, ? " +
+            "WHERE NOT EXISTS (SELECT 1 FROM `contact` WHERE `first_name` = ? AND `last_name` = ?)";
 
     public void insertContact(String firstName, String lastName, String email, String phone, String address) {
         try (Connection connection = DatabaseUtil.getConnection();
@@ -16,10 +18,18 @@ public class InsertData {
             preparedStatement.setString(3, email);
             preparedStatement.setString(4, phone);
             preparedStatement.setString(5, address);
+            preparedStatement.setString(6, firstName);
+            preparedStatement.setString(7, lastName);
 
-            preparedStatement.executeUpdate();
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Contact inserted successfully.");
+            } else {
+                System.out.println("Contact already exists with the same first name and last name.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 }
+

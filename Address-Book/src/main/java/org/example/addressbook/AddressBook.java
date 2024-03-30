@@ -1,5 +1,6 @@
 package org.example.addressbook;
 
+//Dependencies Imported
 import org.example.addressbook.InsertData;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -139,7 +140,7 @@ public class AddressBook extends Application {
             @Override
             public void handle(ActionEvent event) {
                 if (validateFields(firstNameField, lastNameField, emailField, phoneField, addressArea)) {
-                    // Call the insertContact method with the data entered in the form fields
+                    // Call the insertContact method
                     insertData.insertContact(firstNameField.getText(), lastNameField.getText(),
                             emailField.getText(), phoneField.getText(), addressArea.getText());
 
