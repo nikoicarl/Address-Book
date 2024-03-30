@@ -19,7 +19,7 @@ import javafx.stage.Window;
 
 public class AddressBook extends Application {
 
-    private InsertData insertData = new InsertData();
+    private final InsertData insertData = new InsertData();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
