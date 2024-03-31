@@ -139,6 +139,15 @@ public class AddressBook extends Application {
         GridPane.setHalignment(submitButton, HPos.CENTER);
         GridPane.setMargin(submitButton, new Insets(20, 0, 20, 0));
 
+        // Add View All Contacts Button
+        Button viewAllButton = new Button("View All Contacts");
+        viewAllButton.setPrefHeight(40);
+        viewAllButton.setDefaultButton(false);
+        viewAllButton.setPrefWidth(150);
+        gridPane.add(viewAllButton, 0, 7, 2, 1);
+        GridPane.setHalignment(viewAllButton, HPos.CENTER);
+        GridPane.setMargin(viewAllButton, new Insets(20, 0, 20, 0));
+
         // Submit Button Event
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
