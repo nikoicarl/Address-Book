@@ -168,6 +168,16 @@ public class AddressBook extends Application {
                 }
             }
         });
+
+        // View All Contacts Button Event
+        viewAllButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // Call method to show all contacts
+                // showAllContacts();
+            }
+        });
+
     }
 
     private boolean validateFields(TextField firstNameField, TextField lastNameField, TextField emailField,
