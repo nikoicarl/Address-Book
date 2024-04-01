@@ -4,8 +4,6 @@
  */
 package org.example.addressbook;
 
-//Dependencies Imported
-import org.example.addressbook.InsertData;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,6 +19,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
+import java.util.List;
 
 public class AddressBook extends Application {
 
@@ -149,33 +149,27 @@ public class AddressBook extends Application {
         GridPane.setMargin(viewAllButton, new Insets(20, 0, 20, 0));
 
         // Submit Button Event
-        submitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (validateFields(firstNameField, lastNameField, emailField, phoneField, addressArea)) {
-                    // Call the insertContact method
-                    insertData.insertContact(firstNameField.getText(), lastNameField.getText(),
-                            emailField.getText(), phoneField.getText(), addressArea.getText());
+        submitButton.setOnAction(event -> {
+            if (validateFields(firstNameField, lastNameField, emailField, phoneField, addressArea)) {
+                // Call the insertContact method
+                insertData.insertContact(firstNameField.getText(), lastNameField.getText(),
+                        emailField.getText(), phoneField.getText(), addressArea.getText());
 
-                    showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
-                            "Contact Added!", "Contact added successfully!");
-                    // Clear input fields after submission
-                    firstNameField.clear();
-                    lastNameField.clear();
-                    emailField.clear();
-                    phoneField.clear();
-                    addressArea.clear();
-                }
+                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
+                        "Contact Added!", "Contact added successfully!");
+                // Clear input fields after submission
+                firstNameField.clear();
+                lastNameField.clear();
+                emailField.clear();
+                phoneField.clear();
+                addressArea.clear();
             }
         });
 
         // View All Contacts Button Event
-        viewAllButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Call method to show all contacts
-                // showAllContacts();
-            }
+        viewAllButton.setOnAction(event -> {
+            // Call method to show all contacts
+            showAllContacts();
         });
 
     }
@@ -200,4 +194,27 @@ public class AddressBook extends Application {
         alert.initOwner(owner);
         alert.show();
     }
+
+    private void showAllContacts() {
+        List<Contact> contacts = Contact.getAllContactsFromDatabase();
+
+        // Displaying contacts in a dialog or console (replace this with your UI implementation)
+        StringBuilder contactDetails = new StringBuilder();
+        for (Contact contact : contacts) {
+            contactDetails.append("Name: ").append(contact.getFirstName()).append(" ").append(contact.getLastName()).append("\n");
+            contactDetails.append("Email: ").append(contact.getEmail()).append("\n");
+            contactDetails.append("Phone: ").append(contact.getPhone()).append("\n");
+            contactDetails.append("Address: ").append(contact.getAddress()).append("\n\n");
+        }
+
+        // Show contact details in a dialog or console (replace this with your UI implementation)
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("All Contacts");
+        alert.setHeaderText(null);
+        alert.setContentText(contactDetails.toString());
+        alert.showAndWait();
+    }
 }
+
+
+
