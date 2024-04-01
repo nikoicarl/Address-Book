@@ -6,8 +6,6 @@ This is a simple address book application that allows users to add, view, edit, 
 
 - **Add Contact**: Users can add a new contact by providing their first name, last name, email, phone number, and address.
 - **View Contact**: Contacts are displayed in a list format, allowing users to easily view all saved contacts.
-- **Edit Contact**: Users can edit existing contact details including first name, last name, email, phone number, and address.
-- **Delete Contact**: Contacts can be deleted individually, removing them from the address book.
 - **Validation**: Input fields are validated to ensure all required fields are filled and correct formats are used (e.g., valid email address).
 - **Confirmation**: Confirmation dialogs are provided for critical actions such as deleting a contact to prevent accidental data loss.
 
